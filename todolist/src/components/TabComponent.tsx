@@ -17,9 +17,6 @@ const TabComponent: React.FC<TabComponentProps> = ({ openAddTodo }) => {
     const incompleteCount = todos.filter(todo => todo.status === "incomplete").length;
     const completeCount = todos.filter(todo => todo.status === "complete").length;
 
-
-    console.log(todos)
-
     const handleTabClick = (tabNumber: number) => {
         setTabState(tabNumber);
     };

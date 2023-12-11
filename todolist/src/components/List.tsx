@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { TableContext } from './TableContainer';
-import { useTabState } from './TabContext';
 
 interface ListProps {
     deleteTodo: (id) => void;
@@ -9,8 +8,6 @@ interface ListProps {
 
 const List: React.FC<ListProps> = ({deleteTodo, doneTodo}) => {
 
-    const { TabState } = useTabState();
-    
     const { datas, loading } = useContext(TableContext) ?? { datas: [], loading: false };
 
     const handleDelete = (todoIdToDelete) => {
@@ -43,10 +40,7 @@ const List: React.FC<ListProps> = ({deleteTodo, doneTodo}) => {
                   <td >{data.dueDate}</td>
                   <td >{data.status}</td>
                   <td className='flex flex-row justify-around items-center'>
-                    {/* <button onClick={() => handleDelete(data.id)} className='flex items-center justify-center'>
-                      <img src={trash}/>
-                    </button> */}
-                    {TabState !== 2 && <button onClick={() => handleDone(data.id)}>DONE</button>}
+                    {data.status === 'incomplete' && <button onClick={() => handleDone(data.id)}>DONE</button>}
                     <button onClick={() => handleDelete(data.id)}>DELETE</button>
                     <button>EDIT</button>
                   </td>

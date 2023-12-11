@@ -37,8 +37,6 @@ const ListContainer: React.FC<ListContainerProps> = ({setTodos}) => {
     const incompleteTodo = sortedTodos.filter(todo => todo.status === "incomplete");
     const completeTodo = sortedTodos.filter(todo => todo.status === "complete");
 
-
-
     const handleCurrentPage = (number: number) => {
         setPage(number)
     };
@@ -86,8 +84,6 @@ if (TabState === 1) {
 
 }
 
-
-console.log(data)
 return (
     <div className='flex flex-col bg-white mt-[20px] w-[950px] h-[350px]'>
         <TableContainer datas={data} paginate={handleCurrentPage}
