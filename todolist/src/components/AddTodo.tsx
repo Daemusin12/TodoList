@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import TodoForm from './TodoForm';
+import { useTabState } from './TabContext';
 
 interface FormState {
     toDo: string;
@@ -13,6 +14,8 @@ interface AddTodoProps {
   }
 
 const AddTodo: React.FC<AddTodoProps> = ({ isAddTodo, closeAddTodo }) => {
+
+    const { setTabState } = useTabState();
 
     const [todoFormData, setTodoFormData] = useState<FormState>({
         toDo: '',
@@ -35,26 +38,35 @@ const AddTodo: React.FC<AddTodoProps> = ({ isAddTodo, closeAddTodo }) => {
     const submitTodo = async () => {
         try {
 
-            const existingTodos = localStorage.getItem('todos');
-            const todos = existingTodos ? JSON.parse(existingTodos) : [];
-      
-            const newTodo = {
-            id: Date.now(), ...todoFormData,
-            };
+            if (todoFormData.toDo === '' || todoFormData.dueDate === '') {
+                
+                console.log('hotdog')
 
-             const updatedTodos = [...todos, newTodo];
+                closeAddTodo();
 
-            localStorage.setItem('todos', JSON.stringify(updatedTodos));
-      
-            setTodoFormData({
-                toDo: '',
-                dueDate: '',
-                status: 'incomplete'
-            });
+            } else {
 
-            closeAddTodo();
+                const existingTodos = localStorage.getItem('todos');
+                const todos = existingTodos ? JSON.parse(existingTodos) : [];
+        
+                const newTodo = {
+                id: Date.now(), ...todoFormData,
+                };
 
-            console.log('Todo submitted successfully:', newTodo);
+                const updatedTodos = [...todos, newTodo];
+
+                localStorage.setItem('todos', JSON.stringify(updatedTodos));
+        
+                setTodoFormData({
+                    toDo: '',
+                    dueDate: '',
+                    status: 'incomplete'
+                });
+
+                closeAddTodo();
+
+                console.log('Todo submitted successfully:', newTodo);
+            }
             
         } catch (err) {
 
