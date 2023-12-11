@@ -9,6 +9,16 @@ const TabComponent: React.FC<TabComponentProps> = ({ openAddTodo }) => {
 
     const [activeTab, setActiveTab] = useState(1);
 
+    const existingTodos = localStorage.getItem('todos');
+    const todos = existingTodos ? JSON.parse(existingTodos) : [];
+
+    const allTodo = todos.length;
+    const incompleteCount = todos.filter(todo => todo.status === "incomplete").length;
+    const completeCount = todos.filter(todo => todo.status === "complete").length;
+
+
+    console.log(todos)
+
     const handleTabClick = (tabNumber: number) => {
       setActiveTab(tabNumber);
     };
@@ -17,22 +27,22 @@ const TabComponent: React.FC<TabComponentProps> = ({ openAddTodo }) => {
     <div className='flex flex-row grow justify-between'>
         <div className='flex m-2 gap-6'>
             <button
-            className={`w-[100px] rounded-sm ${activeTab === 1 ? 'bg-[#ED6F00]' : ''}`}
+            className={`flex flex-row  items-center justify-center gap-2 w-[100px] rounded-sm ${activeTab === 1 ? 'bg-[#ED6F00]' : ''}`}
             onClick={() => handleTabClick(1)}
             >
-                ALL 
+                <p className='text-[20px]'> {allTodo} </p> ALL 
             </button>
             <button
-            className={`w-[150px] rounded-sm ${activeTab === 2 ? 'bg-[#ED6F00]' : ''}`}
+            className={`flex flex-row  items-center justify-center gap-2 w-[150px] rounded-sm ${activeTab === 2 ? 'bg-[#ED6F00]' : ''}`}
             onClick={() => handleTabClick(2)}
             >
-                COMPLETE
+                <p className='text-[20px]'> {completeCount} </p> COMPLETED 
             </button>
             <button
-            className={`w-[150px] rounded-sm ${activeTab === 3 ? 'bg-[#ED6F00]' : ''}`}
+            className={`flex flex-row  items-center justify-center gap-2 w-[150px] rounded-sm ${activeTab === 3 ? 'bg-[#ED6F00]' : ''}`}
             onClick={() => handleTabClick(3)}
             >
-                INCOMPLETE
+                <p className='text-[20px]'> {incompleteCount} </p> INCOMPLETE
             </button>
         </div>
         <div className='flex w-[150px] justify-center items-center'>

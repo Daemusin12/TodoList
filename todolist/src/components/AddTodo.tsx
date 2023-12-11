@@ -4,6 +4,7 @@ import TodoForm from './TodoForm';
 interface FormState {
     toDo: string;
     dueDate: string;
+    status: string;
 }
 
 interface AddTodoProps {
@@ -16,6 +17,7 @@ const AddTodo: React.FC<AddTodoProps> = ({ isAddTodo, closeAddTodo }) => {
     const [todoFormData, setTodoFormData] = useState<FormState>({
         toDo: '',
         dueDate: '',
+        status: 'incomplete'
     });
 
     const handleTodoInputChange = (e: any) => {
@@ -47,6 +49,7 @@ const AddTodo: React.FC<AddTodoProps> = ({ isAddTodo, closeAddTodo }) => {
             setTodoFormData({
                 toDo: '',
                 dueDate: '',
+                status: 'incomplete'
             });
 
             closeAddTodo();
@@ -73,7 +76,7 @@ const AddTodo: React.FC<AddTodoProps> = ({ isAddTodo, closeAddTodo }) => {
                 </button>
               </div>
               <div className='flex grow items-center justify-center font-Eurostile'>
-                <TodoForm handleTodoInputChange={handleTodoInputChange} formData={todoFormData} buttonComponent={<button onClick={submitTodo}>Submit</button>}/>
+                <TodoForm handleTodoInputChange={handleTodoInputChange} formData={todoFormData} buttonComponent={<button  type='button' className='bg-[#ED6F00] h-[40px] w-[120px] font-bold rounded-md' onClick={submitTodo}>ADD TO DO</button>}/>
               </div>
             </div>
           </div>
