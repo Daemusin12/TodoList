@@ -20,16 +20,20 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        run: |
+          cd TodoList/todolist
+          npm install
 
       - name: Build project
-        run: npm run build
+        run: |
+          cd TodoList/todolist
+          npm run build
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v2
         with:
           name: production-files
-          path: TodoList/dist
+          path: TodoList/todolist/dist
 
   deploy:
     name: Deploy
@@ -42,10 +46,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: production-files
-          path: ./dist
+          path: TodoList/todolist/dist
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: TodoList/todolist/dist
