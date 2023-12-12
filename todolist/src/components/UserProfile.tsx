@@ -28,7 +28,8 @@ const UserProfile: React.FC = () => {
     setIsEditTodo(false);
   };
 
-  const editTodo = (todoToEdit) => {
+  const editTodo = (todoToEdit: any) => {
+    todos
     setIsTodo(todoToEdit)
     openEditTodo()
   };

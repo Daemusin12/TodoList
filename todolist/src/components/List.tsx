@@ -2,37 +2,38 @@ import React, { useContext } from 'react';
 import { TableContext } from './TableContainer';
 
 interface ListProps {
-    deleteTodo: (id) => void;
-    doneTodo: (id) => void;
-    editTodo: (data) => void;
+    deleteTodo: (id: any) => void;
+    doneTodo: (id: any) => void;
+    editTodo: (data: any) => void;
   }
 
 const List: React.FC<ListProps> = ({deleteTodo, doneTodo, editTodo}) => {
 
-  const formatDate = (dateString) => {
-    const options = {
-        weekday: 'short',
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true,
-      };
-      return new Date(dateString).toLocaleDateString(undefined, options);
-  };
+  const formatDate = (dateString: string | number | Date): string => {
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: 'short',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    };
+  
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  }
 
     const { datas, loading } = useContext(TableContext) ?? { datas: [], loading: false };
 
-    const handleDelete = (todoIdToDelete) => {
+    const handleDelete = (todoIdToDelete: any) => {
         deleteTodo(todoIdToDelete);
       };
 
-    const handleDone = (todoIdToDelete) => {
+    const handleDone = (todoIdToDelete: any) => {
         doneTodo(todoIdToDelete);
     };
 
-    const handleEdit = (todoToEdit) => {
+    const handleEdit = (todoToEdit: any) => {
       editTodo(todoToEdit);
   };
 

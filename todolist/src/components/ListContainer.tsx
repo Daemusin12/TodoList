@@ -5,8 +5,14 @@ import List from './List';
 
 interface ListContainerProps {
     setTodos: (todo: any) => void;
-    editTodo: (data) => void;
+    editTodo: (data: any) => void;
   }
+
+  type Todo = {
+    id: number;
+    dueDate: string;
+    status: "incomplete" | "complete";
+  };
 
 const ListContainer: React.FC<ListContainerProps> = ({setTodos ,editTodo}) => {
 
@@ -17,30 +23,30 @@ const ListContainer: React.FC<ListContainerProps> = ({setTodos ,editTodo}) => {
 
     const existingTodos = localStorage.getItem('todos');
     const allTodo = existingTodos ? JSON.parse(existingTodos) : [];
-    const sortedTodos = allTodo.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
-    const incompleteTodo = sortedTodos.filter(todo => todo.status === "incomplete");
-    const completeTodo = sortedTodos.filter(todo => todo.status === "complete");
+    const sortedTodos = allTodo.sort((a: Todo, b: Todo) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
+    const incompleteTodo = sortedTodos.filter((todo: Todo) => todo.status === "incomplete");
+    const completeTodo = sortedTodos.filter((todo: Todo) => todo.status === "complete");
 
     const handleCurrentPage = (number: number) => {
         setPage(number)
     };
 
-    const deleteTodo = (todoIdToDelete) => {
+    const deleteTodo = (todoIdToDelete: any) => {
         const existingTodos = localStorage.getItem('todos');
         const todos = existingTodos ? JSON.parse(existingTodos) : [];
       
-        const updatedTodos = todos.filter(todo => todo.id !== todoIdToDelete);
+        const updatedTodos = todos.filter((todo: Todo) => todo.id !== todoIdToDelete);
       
         localStorage.setItem('todos', JSON.stringify(updatedTodos));
         
         setTodos(updatedTodos);
       };
 
-      const doneTodo = (todoIdToComplete) => {
+      const doneTodo = (todoIdToComplete: any) => {
         const existingTodos = localStorage.getItem('todos');
         const todos = existingTodos ? JSON.parse(existingTodos) : [];
       
-        const todoToComplete = todos.find(todo => todo.id === todoIdToComplete);
+        const todoToComplete = todos.find((todo: Todo) => todo.id === todoIdToComplete);
       
         if (todoToComplete) {
           todoToComplete.status = 'complete';

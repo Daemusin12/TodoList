@@ -68,7 +68,7 @@ const EditTodo: React.FC<EditTodoProps> = ({ data, isEditTodo, closeEditTodo }) 
                   ...todoFormData,
                 };
         
-                const updatedTodos = todos.map((todo) =>
+                const updatedTodos = todos.map((todo: any) =>
                   todo.id === data.id ? newTodo : todo
                 );
         

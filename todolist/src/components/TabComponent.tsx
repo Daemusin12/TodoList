@@ -5,6 +5,11 @@ interface TabComponentProps {
     openAddTodo: () => void;
   }
 
+  type Todo = {
+    id: number;
+    dueDate: string;
+    status: "incomplete" | "complete";
+  };
 
 const TabComponent: React.FC<TabComponentProps> = ({ openAddTodo }) => {
 
@@ -14,8 +19,8 @@ const TabComponent: React.FC<TabComponentProps> = ({ openAddTodo }) => {
     const todos = existingTodos ? JSON.parse(existingTodos) : [];
 
     const allTodo = todos.length;
-    const incompleteCount = todos.filter(todo => todo.status === "incomplete").length;
-    const completeCount = todos.filter(todo => todo.status === "complete").length;
+    const incompleteCount = todos.filter((todo: Todo) => todo.status === "incomplete").length;
+    const completeCount = todos.filter((todo: Todo) => todo.status === "complete").length;
 
     const handleTabClick = (tabNumber: number) => {
         setTabState(tabNumber);

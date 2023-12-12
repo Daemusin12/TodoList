@@ -18,7 +18,7 @@ interface TableContextValue {
 const TableContext = createContext<TableContextValue | undefined>(undefined);
 
 function TableContainer(props: TableContainerProps) {
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   const { datas, totalDatas, datasPerPage, currentPage, paginate } = props;
   const pageNumbers: number[] = [];
