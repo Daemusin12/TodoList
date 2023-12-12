@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface FormState {
     toDo: string;
@@ -42,10 +44,22 @@ const EditTodo: React.FC<EditTodoProps> = ({ data, isEditTodo, closeEditTodo }) 
     const submitTodo = async () => {
         try {
 
+            const currentDate = new Date();
+            const dueDate = new Date(todoFormData.dueDate);
+
             if (todoFormData.toDo === '' || todoFormData.dueDate === '') {
-                console.log('hotdog');
+
+                toast.error('Please No Empty Fields');
+
                 closeEditTodo();
-              } else {
+
+            } else if (dueDate < currentDate) {
+
+                toast.error('Due date must be in the future');
+
+                closeEditTodo();
+
+            } else {
                 const existingTodos = localStorage.getItem('todos');
                 const todos = existingTodos ? JSON.parse(existingTodos) : [];
         
@@ -62,8 +76,8 @@ const EditTodo: React.FC<EditTodoProps> = ({ data, isEditTodo, closeEditTodo }) 
         
                 closeEditTodo();
         
-                console.log('Todo Edited successfully:', newTodo);
-              }
+                toast.success('Todo Edited successfully');
+            }
             
         } catch (err) {
 
