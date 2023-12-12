@@ -16,7 +16,7 @@ const TodoForm: React.FC<TodoFormProps> = ({ handleTodoInputChange, formData, bu
                 </label>
                     <input
                       name='toDo'
-                      value={formData.todo}
+                      value={formData.toDo}
                       onChange={handleTodoInputChange}
                       className='p-2 rounded-lg h-[35px]  bg-SBL-lightgrey w-full text-gray-700 text-[15px]'
                       placeholder='Type here...'

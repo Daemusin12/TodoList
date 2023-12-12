@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import TodoForm from './TodoForm';
-import { useTabState } from './TabContext';
 
 interface FormState {
     toDo: string;
@@ -14,8 +13,6 @@ interface AddTodoProps {
   }
 
 const AddTodo: React.FC<AddTodoProps> = ({ isAddTodo, closeAddTodo }) => {
-
-    const { setTabState } = useTabState();
 
     const [todoFormData, setTodoFormData] = useState<FormState>({
         toDo: '',
@@ -32,7 +29,6 @@ const AddTodo: React.FC<AddTodoProps> = ({ isAddTodo, closeAddTodo }) => {
             };
             return updatedData;
         });
-        console.log(todoFormData)
     };
 
     const submitTodo = async () => {
@@ -81,8 +77,8 @@ const AddTodo: React.FC<AddTodoProps> = ({ isAddTodo, closeAddTodo }) => {
         <div className='fixed inset-0 flex items-center justify-center z-50'>
           <div className='bg-white rounded-md shadow-md overflow-hidden'>
             <div className=' flex flex-col text-lg font-semibold mb-2 w-[550px] h-[400px]'>
-              <div className='flex h-[70px] p-4 bg-SBL-orange items-center justify-center text-white text-[25px] font-EurostileBeckerHeavyRegular'>
-                <p className='flex grow ml-12 text-white items-center justify-center'>CREATE USER</p>
+              <div className='flex h-[70px] p-4 items-center justify-center text-white text-[25px]'>
+                <p className='flex grow ml-12 text-black items-center justify-center'>CREATE TASK</p>
                 <button className='h-[35px] w-[35px] bg-black  flex items-center justify-center rounded-full' onClick={closeAddTodo}>
                     X
                 </button>

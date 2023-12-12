@@ -3,11 +3,14 @@ import sclogo from '../assets/SCLogo.webp'
 import TabComponent from './TabComponent'
 import AddTodo from './AddTodo';
 import ListContainer from './ListContainer';
+import EditTodo from './EditTodo';
 
 const UserProfile: React.FC = () => {
 
   const [isAddTodo, setIsAddTodo] = useState(false);
   const [todos, setTodos] = useState([]);
+  const [isTodo , setIsTodo] = useState('')
+  const [isEditTodo, setIsEditTodo] = useState(false);
 
   const openAddTodo = () => {
     setIsAddTodo(true);
@@ -15,6 +18,19 @@ const UserProfile: React.FC = () => {
 
   const closeAddTodo = () => {
     setIsAddTodo(false);
+  };
+
+  const openEditTodo = () => {
+    setIsEditTodo(true);
+  };
+
+  const closeEditTodo = () => {
+    setIsEditTodo(false);
+  };
+
+  const editTodo = (todoToEdit) => {
+    setIsTodo(todoToEdit)
+    openEditTodo()
   };
 
   return (
@@ -34,9 +50,10 @@ const UserProfile: React.FC = () => {
       <div className='flex grow items-center'>
       <TabComponent openAddTodo={openAddTodo}/>
       <AddTodo isAddTodo={isAddTodo} closeAddTodo={closeAddTodo}/>
+      <EditTodo isEditTodo={isEditTodo} closeEditTodo={closeEditTodo} data={isTodo}/>
       </div>
     </div>
-    <ListContainer setTodos={setTodos}/>
+    <ListContainer setTodos={setTodos} editTodo={editTodo}/>
     </>
   )
 }
